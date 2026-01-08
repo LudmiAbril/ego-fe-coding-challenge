@@ -1,44 +1,55 @@
+import { Link } from "react-router-dom";
+
+interface MenuItem {
+  label: string;
+  path: string;
+}
+
 interface MenuProps {
   isMenuOpen: boolean;
+  toggleMenuOpen: () => void;
 }
+
 const menu_items = [
   {
     items: [
-      "Modelos",
-      "Servicios y Accesorios",
-      "Financiación",
-      "Reviews y Comunidad",
+      { label: "Modelos", path: "/modelos" },
+      { label: "Servicios y Accesorios", path: "/servicios" },
+      { label: "Financiación", path: "/financiacion" },
+      { label: "Reviews y Comunidad", path: "/comunidad" },
     ],
     separator: "bg-[#E9E9E9]",
   },
   {
     items: [
-      "Toyota Mobility Service",
-      "Toyota Gazoo Racing",
-      "Toyota Híbridos",
+      { label: "Toyota Mobility Service", path: "/mobility" },
+      { label: "Toyota Gazoo Racing", path: "/gazoo" },
+      { label: "Toyota Híbridos", path: "/hibridos" },
     ],
     separator: "bg-[#D1D1D1]",
   },
   {
-    items: ["Concesionarios", "Test Drive", "Contacto"],
-    separator: null,
+    items: [
+      { label: "Concesionarios", path: "/concesionarios" },
+      { label: "Test Drive", path: "/test-drive" },
+      { label: "Contacto", path: "/contacto" },
+    ],
   },
 ];
 
-const secondary_items = [
-  "Actividades",
-  "Servicios al Cliente",
-  "Ventas Especiales",
-  "Innovación",
-  "Prensa",
-  "Acerca de...",
+const secondary_items: MenuItem[] = [
+  { label: "Actividades", path: "/actividades" },
+  { label: "Servicios al Cliente", path: "/servicios-cliente" },
+  { label: "Ventas Especiales", path: "/ventas" },
+  { label: "Innovación", path: "/innovacion" },
+  { label: "Prensa", path: "/prensa" },
+  { label: "Acerca de...", path: "/acerca" },
 ];
 
-export const Menu = ({ isMenuOpen }: MenuProps) => {
-  const liClass =
-    "cursor-pointer hover:underline transition-all ";
+export const Menu = ({ isMenuOpen, toggleMenuOpen }: MenuProps) => {
+  const liClass = "cursor-pointer hover:underline transition-all ";
   return (
-    <div
+    <nav
       className={`
         ${!isMenuOpen && "hidden"} 
         flex flex-col items-end bg-white z-40
@@ -50,8 +61,10 @@ export const Menu = ({ isMenuOpen }: MenuProps) => {
           <div key={index}>
             <ul className="w-full text-end px-10 md:px-15 space-y-2">
               {section.items.map((item) => (
-                <li key={item} className={liClass}>
-                  {item}
+                <li key={item.label} className={liClass}>
+                  <Link to={item.path} onClick={toggleMenuOpen}>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -62,10 +75,14 @@ export const Menu = ({ isMenuOpen }: MenuProps) => {
         ))}
       </div>
       <ul className="w-full text-end bg-[#EFEEEF] px-10 md:px-15 py-6 space-y-2 ">
-       {secondary_items.map((item)=> (
-        <li className={liClass}>{item}</li>
-       ))}
+        {secondary_items.map((item) => (
+          <li className={liClass}>
+            <Link to={item.path} onClick={toggleMenuOpen}>
+              {item.label}
+            </Link>
+          </li>
+        ))}
       </ul>
-    </div>
+    </nav>
   );
 };

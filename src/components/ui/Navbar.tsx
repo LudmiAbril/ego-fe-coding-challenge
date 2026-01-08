@@ -3,6 +3,7 @@ import egoIcon from "../../assets/icons/ego-icon.svg";
 import { Menu } from "./Menu";
 import { useState } from "react";
 import { CgClose } from "react-icons/cg";
+import { Link } from "react-router-dom";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenu = () => {
@@ -11,25 +12,22 @@ export const Navbar = () => {
   return (
     <nav className="relative">
       <div className="flex justify-between items-center p-4 border-b border-[#CCCCCC]">
-        <div>
+        <Link to={"/"}>
           <img src={egoIcon} alt="EGO icon" />
-        </div>
+        </Link>
         <div>{/* dos pestañas web */}</div>
-        <button
-          className="cursor-pointer flex items-center gap-3"
-          onClick={toggleMenu}
-        >
+        <div className="flex items-center gap-3">
           <p className="text-sm">{!isMenuOpen ? "Menú" : "Cerrar"}</p>
-          <button>
+          <button onClick={toggleMenu} className="cursor-pointer">
             {!isMenuOpen ? (
               <FiMenu fontSize={"1.5rem"} />
             ) : (
               <CgClose fontSize={"1.5rem"} />
             )}
           </button>
-        </button>
+        </div>
       </div>
-      <Menu isMenuOpen={isMenuOpen} />
+      <Menu isMenuOpen={isMenuOpen} toggleMenuOpen={toggleMenu} />
     </nav>
   );
 };
