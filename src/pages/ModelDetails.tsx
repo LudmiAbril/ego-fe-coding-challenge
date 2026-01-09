@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Carrousel } from "./Carrousel";
 const ModelDetails = () => {
   const { id } = useParams<{ id: string }>();
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -25,7 +26,7 @@ const ModelDetails = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center mx-5 my-9 md:mx-40 md:my-10">
+    <div className="flex flex-col items-center">
       {loading === true && <p>Loading...</p>}
       {modelDetails !== null && (
         <>
@@ -50,7 +51,7 @@ const ModelDetails = () => {
               />
             </div>
           </div>
-          <div>{/* carrousel */}</div>
+        <Carrousel modelFeatures={modelDetails?.model_features?? []} />
           <div>
             <div>
               <p></p>
