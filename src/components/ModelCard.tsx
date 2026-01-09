@@ -1,5 +1,4 @@
 import { useState } from "react";
-import type { Model } from "../pages/Models";
 import { Link } from "react-router-dom";
 
 interface ModelCardProps {
@@ -27,9 +26,9 @@ const ModelCard = ({ model }: ModelCardProps) => {
       <p className="text-[#191919] text-sm">
         {model.year} | {model.price}
       </p>
-      <div className="max-w-[240px] md:max-w-[300px] md:h-[200px] flex items-center justify-center">
+      <div className="max-w-[240px] md:max-w-[240px] md:h-[200px] flex items-center justify-center">
         <img
-          src={model.photo}
+          src={model.thumbnail}
           alt={`Fotografía de ${model.name}`}
           className="max-w-full max-h-full object-contain"
         />
