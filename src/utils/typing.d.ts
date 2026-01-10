@@ -23,3 +23,9 @@ interface Model {
     model_features?: ModelFeature[];
     model_highlights?: ModelHighlight[];
 }
+
+interface SelectedFilters {
+    filter: string;
+    sorting: SortKey;
+}
+type SortKey = "none" | "price-asc" | "price-desc" | "year-asc" | "year-desc";
