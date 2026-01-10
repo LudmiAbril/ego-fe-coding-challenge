@@ -50,8 +50,7 @@ export const Carrousel = ({ modelFeatures }: CarrouselProps) => {
           0: {
             slidesPerView: 1.2,
             spaceBetween: 8,
-            centeredSlides: true,
-            navigation: false,
+            centeredSlides:true
           },
           768: {
             slidesPerView: 3,

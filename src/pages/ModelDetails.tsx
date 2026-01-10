@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Carrousel } from "./Carrousel";
+import { Carrousel } from "../components/Carrousel";
 const ModelDetails = () => {
   const { id } = useParams<{ id: string }>();
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -26,19 +26,19 @@ const ModelDetails = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center py-9 md:py-14 pb-14 md:pb-30">
       {loading === true && <p>Loading...</p>}
       {modelDetails !== null && (
         <>
-          <div className="flex flex-col md:flex-row items-center gap-9">
-            <div className="w-full max-w-[550px]">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-20 mb-10 px-[15px]">
+            <div className="w-full max-w-[300px] md:max-w-[600px]">
               <img
                 src={modelDetails?.photo}
                 alt={`Fotografía de ${modelDetails?.name}`}
                 className="w-full h-auto object-contain"
               />
             </div>
-            <div>
+            <div className="max-w-[600px]">
               <p className="font-semibold mb-[8px] text-[#373737] text-lg">
                 {modelDetails?.name}
               </p>
@@ -51,20 +51,31 @@ const ModelDetails = () => {
               />
             </div>
           </div>
-        <Carrousel modelFeatures={modelDetails?.model_features?? []} />
-          <div>
-            <div>
-              <p></p>
-              <p></p>
-            </div>
-            <img src="" alt="" />
-          </div>
-          <div>
-            <img src="" alt="" />
-            <div>
-              <p></p>
-              <p></p>
-            </div>
+          <Carrousel modelFeatures={modelDetails?.model_features ?? []} />
+          <div className="flex flex-col gap-20 md:gap-40 mt-20 px-[15px]">
+            {modelDetails?.model_highlights?.map((item, index) => (
+              <div
+                key={index}
+                className={`flex flex-col flex-col-reverse items-center gap-8 md:gap-20 ${
+                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                }`}
+              >
+                <div className="max-w-[400px]">
+                  <h4 className="text-[20px] text-[#373737] font-semibold mb-4">
+                    {item.title}
+                  </h4>
+                  <div
+                    className="text-gray-500 text-sm leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: item.content }}
+                  />
+                </div>
+                <img
+                  src={item.image}
+                  alt="imagen"
+                  className="w-120 rounded-md"
+                />
+              </div>
+            ))}
           </div>
         </>
       )}
