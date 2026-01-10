@@ -34,7 +34,7 @@ const ModelCard = ({ model }: ModelCardProps) => {
         />
       </div>
       <Link
-        to={`/model/${model.id}`}
+        to={`/modelos/${model.id}`}
         className={`${
           hovered ? "opacity-100" : "opacity-0"
         } bg-[#191919] px-8 py-2 rounded-full text-bold text-white cursor-pointer transition hover:bg-white hover:text-black hover:outline-1 text-sm md:text-md`}

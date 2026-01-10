@@ -27,8 +27,8 @@ const ModelDetails = () => {
 
   return (
     <div className="flex flex-col items-center py-9 md:py-14 pb-14 md:pb-30">
-      {loading === true && <p>Loading...</p>}
-      {modelDetails !== null && (
+      {loading === true && <p className="text-center mt-50">Cargando...</p>}
+      {!loading && modelDetails !== null && (
         <>
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-20 mb-10 px-[15px]">
             <div className="w-full max-w-[300px] md:max-w-[600px]">
