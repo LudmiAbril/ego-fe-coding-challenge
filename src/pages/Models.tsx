@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ModelCard from "../components/ModelCard";
-import { filter_options, FilterBar } from "../components/FilterBar";
+import {FilterBar } from "../components/FilterBar";
+import { filter_options } from "../utils/consts";
 
 const Models = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
