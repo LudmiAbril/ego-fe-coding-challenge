@@ -13,23 +13,15 @@ interface CarrouselProps {
 export const Carrousel = ({ modelFeatures }: CarrouselProps) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const navArrowStyle =
+    "hidden md:flex absolute top-0 h-full w-14 justify-center bg-[#F7F7F7]/70 z-10 cursor-pointer";
 
   return (
     <div className="relative w-full bg-[#F7F7F7] py-8">
-      <button
-        ref={prevRef}
-        className="hidden md:flex absolute left-0 top-0 h-full w-14 
-                    justify-center
-                   bg-[#F7F7F7]/70 z-10 cursor-pointer"
-      >
+      <button ref={prevRef} className={`${navArrowStyle} left-0`}>
         <IoIosArrowBack fontSize={30} fill="#474747" className="mt-25" />
       </button>
-      <button
-        ref={nextRef}
-        className="hidden md:flex absolute right-0 top-0 h-full w-14
-                    justify-center
-                    bg-[#F7F7F7]/70 z-10 cursor-pointer"
-      >
+      <button ref={nextRef} className={`${navArrowStyle} right-0`}>
         <IoIosArrowForward fontSize={30} fill="#474747" className="mt-25" />
       </button>
       <Swiper
@@ -48,9 +40,9 @@ export const Carrousel = ({ modelFeatures }: CarrouselProps) => {
         }}
         breakpoints={{
           0: {
-            slidesPerView: 1.2,
+            slidesPerView: 1.1,
             spaceBetween: 8,
-            centeredSlides:true
+            centeredSlides: true,
           },
           768: {
             slidesPerView: 3,
@@ -65,7 +57,7 @@ export const Carrousel = ({ modelFeatures }: CarrouselProps) => {
         }}
       >
         {modelFeatures.map((feature, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={"feature-" + index}>
             <CarrouselCard feature={feature} />
           </SwiperSlide>
         ))}

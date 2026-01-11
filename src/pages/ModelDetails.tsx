@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Carrousel } from "../components/Carrousel";
+import { getModelDetails } from "../services/models-service";
 const ModelDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const apiUrl = import.meta.env.VITE_API_URL;
   const [modelDetails, setModelDetails] = useState<Model>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDetails = async () => {
+      if (!id) return;
       try {
         setLoading(true);
-        const response = await fetch(`${apiUrl}/api/models/${id}`);
-        if (!response.ok) throw new Error("Error en la red");
-        const data = await response.json();
-        console.log(data);
+        const data = await getModelDetails(id);
         setModelDetails(data);
       } catch (error) {
         console.error("Error al obtener modelos:", error);
@@ -26,8 +24,10 @@ const ModelDetails = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center py-9 md:py-14 pb-14 md:pb-30">
-      {loading === true && <p className="text-center mt-50">Cargando...</p>}
+    <div className="min-h-screen flex flex-col items-center py-9 md:py-14 pb-14 md:pb-30">
+      {loading === true && (
+        <p className="text-center mt-50 animate-pulse">Cargando...</p>
+      )}
       {!loading && modelDetails !== null && (
         <>
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-20 mb-10 px-[15px]">
@@ -38,15 +38,14 @@ const ModelDetails = () => {
                 className="w-full h-auto object-contain"
               />
             </div>
-            <div className="max-w-[600px]">
-              <p className="font-semibold mb-[8px] text-[#373737] text-lg">
+            <div className="max-w-[600px] text-[var(--title)]">
+              <p className="font-semibold mb-[8px] text-lg">
                 {modelDetails?.name}
               </p>
-              <h3 className="text-3xl font-bold text-[#373737] mb-[20px]">
+              <h3 className="text-4xl font-bold mb-[20px]">
                 {modelDetails?.title}
               </h3>
               <div
-                className="text-gray-600"
                 dangerouslySetInnerHTML={{ __html: modelDetails?.description }}
               />
             </div>

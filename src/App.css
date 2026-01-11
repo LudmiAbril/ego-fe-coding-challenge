@@ -6,6 +6,11 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+:root {
+  --title: #373737;
+  --active: #EB0A1E;
+}
+
 .swiper-pagination {
   position: relative !important;
   margin-top: 50px;
@@ -23,5 +28,3 @@ body {
   background-color: #4a4a4a !important;
   opacity: 50% !important;
 }
-
-

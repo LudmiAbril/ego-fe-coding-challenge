@@ -1,3 +1,8 @@
+interface MenuItem {
+    label: string;
+    path: string;
+}
+
 interface ModelFeature {
     name: string;
     description: string;
