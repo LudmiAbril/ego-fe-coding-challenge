@@ -7,6 +7,7 @@ import { useFilteredModels } from "../hooks/UseFilters";
 const Models = () => {
   const [loading, setLoading] = useState(false);
   const [models, setModels] = useState<Model[]>([]);
+  const [mobileActiveId, setMobileActiveId] = useState<number | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
     filter: "Todos",
     sorting: "none",
@@ -50,7 +51,12 @@ const Models = () => {
       {!loading && models !== null && (
         <div className="flex flex-wrap justify-center items-center gap-9 md:gap-30 mt-14">
           {filteredModels.map((model) => (
-            <ModelCard key={model.id} model={model} />
+            <ModelCard
+              key={model.id}
+              model={model}
+              isActive={mobileActiveId === model.id}
+              onActivate={() => setMobileActiveId(model.id)}
+            />
           ))}
         </div>
       )}

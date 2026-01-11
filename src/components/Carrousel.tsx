@@ -40,7 +40,7 @@ export const Carrousel = ({ modelFeatures }: CarrouselProps) => {
         }}
         breakpoints={{
           0: {
-            slidesPerView: 1.1,
+            slidesPerView: 1.2,
             spaceBetween: 8,
             centeredSlides: true,
           },

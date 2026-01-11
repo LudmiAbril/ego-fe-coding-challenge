@@ -4,7 +4,7 @@ interface CarrouselCardProps {
 const CarrouselCard = ({ feature }: CarrouselCardProps) => {
   return (
     <div className="flex flex-col px-2 md:max-w-[300px] text-[var(--title)]">
-      <div className="w-full max-w-[250px] aspect-video mb-4 overflow-hidden rounded-md">
+      <div className="w-full md:max-w-[250px] aspect-video mb-4 overflow-hidden rounded-md">
         <img
           src={feature.image}
           alt={feature.name}

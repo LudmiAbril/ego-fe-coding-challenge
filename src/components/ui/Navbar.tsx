@@ -27,7 +27,7 @@ export const Navbar = () => {
   const menuText = !isMenuOpen ? "Menú" : "Cerrar";
 
   return (
-    <nav className="relative">
+  <nav className="sticky top-0 z-50 bg-white">
       <div className="flex justify-between items-center p-4 border-b border-[#CCCCCC]">
         <div className="flex items-center gap-40">
           <Link to={"/"}>

@@ -2,8 +2,6 @@ import { useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { filter_options, sorting_options } from "../utils/consts";
 
-type DropdownKey = "filter" | "sort" | null;
-
 interface FilterBarProps {
   onFiltersChange: (newFilters: Partial<SelectedFilters>) => void;
   selectedFilters: SelectedFilters;
@@ -12,23 +10,28 @@ export const FilterBar = ({
   onFiltersChange,
   selectedFilters,
 }: FilterBarProps) => {
-  const [openDropdown, setOpenDropdown] = useState<DropdownKey>(null);
-  const dropdownIcon =
-    openDropdown === "filter" ? <IoIosArrowUp /> : <IoIosArrowDown />;
+  const [openDropdown, setOpenDropdown] = useState<{
+    filter: boolean;
+    sort: boolean;
+  }>({ filter: false, sort: false });
+  
+  type DropdownKey = keyof typeof openDropdown;
+  const toggleDropdown = (key: DropdownKey) => {
+    setOpenDropdown((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+  const handleFilterClick = (label: string) => {
+    onFiltersChange({ filter: label });
+    toggleDropdown("filter");
+  };
+
   const triggerButtonClass =
     "font-semibold text-[#373737] flex items-center gap-2";
   const dropdownContainerClass =
     "bg-white shadow-lg rounded-md z-50 text-[#191919]";
   const dropdownItemBaseClass = "px-2 py-3 cursor-pointer transition-colors";
-
-  const toggleDropdown = (key: DropdownKey) => {
-    setOpenDropdown((prev) => (prev === key ? null : key));
-  };
-
-  const handleFilterClick = (label: string) => {
-    onFiltersChange({ filter: label });
-    toggleDropdown("filter");
-  };
 
   return (
     <nav className="flex justify-between gap-5 w-full py-2 border-b-1 border-[#D8D8D8] items-center">
@@ -38,14 +41,16 @@ export const FilterBar = ({
           onClick={() => toggleDropdown("filter")}
         >
           Filtrar Por
-          <div className="md:hidden">{dropdownIcon}</div>
+          <div className="md:hidden">
+            {openDropdown.filter ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </div>
         </button>
         <ul
           className={`
               ${dropdownContainerClass}
       absolute md:static
       left-0 mt-2 md:mt-0 md:z-0 flex flex-col md:flex-row md:gap-10 md:bg-transparent md:rounded-none md:shadow-none
-      ${openDropdown === "filter" ? "flex" : "hidden"} md:flex w-40
+      ${openDropdown.filter ? "flex" : "hidden"} md:flex w-40 md:w-fit
     `}
         >
           {filter_options.map((opt, index, arr) => (
@@ -55,7 +60,7 @@ export const FilterBar = ({
                 index + 1 !== arr.length &&
                 "border-b-1 border-[#D8D8D8] md:border-none"
               }
-              ${dropdownItemBaseClass} md:w-fit text-left md:text-center
+              ${dropdownItemBaseClass} md:w-fit text-left 
           md:px-4 md:py-2
           text-xs md:text-base
           md:rounded-full
@@ -77,11 +82,11 @@ export const FilterBar = ({
           onClick={() => toggleDropdown("sort")}
         >
           Ordenar Por
-          {dropdownIcon}
+          {openDropdown.sort ? <IoIosArrowUp /> : <IoIosArrowDown />}
         </button>
         <ul
           className={`${
-            openDropdown !== "sort" && "hidden"
+            !openDropdown.sort && "hidden"
           } ${dropdownContainerClass} w-43 md:w-60 mt-2 absolute right-0 flex flex-col text-xs md:text-sm`}
         >
           {sorting_options.map((opt, index, arr) => (
