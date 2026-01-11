@@ -13,7 +13,6 @@ const Models = () => {
     sorting: "none",
   });
   const filteredModels = useFilteredModels(models, selectedFilters);
-
   const onChangeFilters = (newFilters: Partial<SelectedFilters>) => {
     setSelectedFilters((prev) => ({
       ...prev,
