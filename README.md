@@ -1,5 +1,16 @@
+# EGO Frontend challenge
+Proyecto web que permite explorar distintos modelos comerciales de automóviles.
+# Tecnologías usadas
+- React v.19
+- Vite v.7
+- Typescript
+- Tailwind CSS
+- Swiper
+- React Icons
 # Levantar el proyecto localmente
-
+### Requisitos previos
+- Node.js >= 18.18
+- npm >= 9
 ## 1. Clonar el repositorio
 ```bash
 git clone <URL_DEL_REPOSITORIO>
@@ -18,3 +29,5 @@ VITE_API_URL=<URL_BASE>
 ```bash
 npm run dev
 ```
+# Visualizar el proyecto deployado
+https://ego-fe-coding-challenge.vercel.app
